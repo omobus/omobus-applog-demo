@@ -15,7 +15,7 @@
 2. Скопировать из данного проекта файл [AppLogListener.java](https://github.com/omobus/omobus-applog-demo/blob/master/java/com/omobus/AppLogManager.java)
 разместив его в папке с исходными текстами приложения.
 
-3. В функцию создания активности создать экземпляр AppLogListener:
+3. В функцию создания активности добавить код создания экземпляр AppLogListener:
 
 ```java
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@
     }
 ```
 
-4. В функцию запуска активности добавить вызов функции связывания с сервисом OMOBUS:
+4. В функцию запуска активности добавить код вызова функции связывания с сервисом OMOBUS:
 
 ```java
     @Override protected void onStart() {
@@ -35,7 +35,7 @@
     }
 ```
 
-5. В функцию остановки активности добавить вызов функции отключения от сервиса OMOBUS:
+5. В функцию остановки активности добавить код вызова функции отключения от сервиса OMOBUS:
 
 ```java
     @Override protected void onStop() {
