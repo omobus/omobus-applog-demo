@@ -8,7 +8,9 @@
 
 1. В AndroidManifest.xml добавить права доступа на запись в мобильное приложение OMOBUS:
 
+```xml
     <uses-permission android:name="omobus.permission.WRITE_ACCESS" />
+```
 
 2. Скопировать из данного проекта файл [AppLogListener.java](https://github.com/omobus/omobus-applog-demo/blob/master/java/com/omobus/AppLogManager.java)
 разместив его в папке с исходными текстами приложения.
