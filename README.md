@@ -15,36 +15,44 @@
 
 3. В функции создания активности создать экземпляр AppLogListener:
 
+```java
     @Override protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	/* private AppLogManager appLog = null; */
 	appLog = AppLogManager.createInstance(this);
     }
+```
 
 4. В функции запуска активности добавить вызов функции связывания с сервисом OMOBUS:
 
+```java
     @Override protected void onStart() {
 	super.onStart();
 	// Bind to the service
         appLog.bindService();
     }
+```
 
 5. В функции остановки активности добавить вызов функции отключения от сервиса OMOBUS:
 
+```java
     @Override protected void onStop() {
 	super.onStop();
         // Unbind from the service
         appLog.unbindService();
     }
+```
 
 6. При выполнение какого либо действия пользователя выполнить его логирование в сервисе OMOBUS:
 
+```java
     appLog.post(
 	"task1", /* уникальное название объекта или операции */
 	"start", /* состояние объекта или операции: start - начало операции, stop - завершение операции или любое другое название состояния */
 	cookie, /* уникальная метка операции используемая для связывамния начала и окнчания (см. демонстрационный пример) */
 	null /* дополнительна информация*/
     );
+```
 
 Пример реализации описанных выше действий приводится в [MainActivity.java](https://github.com/omobus/omobus-applog-demo/blob/master/java/com/omobus/demo/applog/MainActivity.java).
 
