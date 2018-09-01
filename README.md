@@ -10,7 +10,7 @@
 
     <uses-permission android:name="omobus.permission.WRITE_ACCESS" />
 
-2. Скопировать из данного проекта файл [AppLogListener.java](https://github.com/omobus/omobus-applog-demo/java/com/omobus/AppLogManager.java)
+2. Скопировать из данного проекта файл [AppLogListener.java](https://github.com/omobus/omobus-applog-demo/blob/master/java/com/omobus/AppLogManager.java)
 разместив его в папке с исходными текстами приложения.
 
 3. В функции создания активности создать экземпляр AppLogListener:
@@ -46,7 +46,7 @@
 	null /* дополнительна информация*/
     );
 
-Пример реализации описанных выше действий приводится в MainActivity.java](https://github.com/omobus/omobus-applog-demo/java/com/omobus/demo/applog/MainActivity.java).
+Пример реализации описанных выше действий приводится в [MainActivity.java](https://github.com/omobus/omobus-applog-demo/blob/master/java/com/omobus/demo/applog/MainActivity.java).
 
 
 # COPYRIGHT
