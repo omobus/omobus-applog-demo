@@ -1,0 +1,8 @@
+*.sh -crlf
+*.java -crlf
+AUTHORS -crlf
+ChangeLog -crlf
+LICENSE -crlf
+README -crlf
+README.md -crlf
+.git* -crlf

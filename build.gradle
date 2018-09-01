@@ -1,0 +1,118 @@
+buildscript {
+  repositories {
+    jcenter()
+    google()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+  }
+}
+
+allprojects {
+  repositories {
+    jcenter()
+    mavenCentral()
+    flatDir {
+	dirs 'libs'
+    }
+      google()
+  }
+}
+
+def loadExtraProperties(String fileName) {
+  def props = new Properties()
+  props.load(new FileInputStream(fileName))
+  props.each { key, val ->
+    project.ext.set(key, val)
+  }
+}
+
+apply plugin: 'com.android.application'
+loadExtraProperties('omobus.properties')
+
+dependencies {
+  // android support libs
+  implementation 'com.android.support:appcompat-v7:26.1.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+}
+
+android {
+  // All properties are read from gradle.properties file
+  compileSdkVersion propTargetSdkVersion.toInteger()
+  buildToolsVersion propBuildToolsVersion
+
+  defaultConfig {
+    // Default package name is taken from the manifest and should be com.omonbus.mobile
+    versionCode propVersionCode.toInteger()
+    versionName propVersionName
+    minSdkVersion propMinSdkVersion.toInteger()
+    targetSdkVersion propTargetSdkVersion.toInteger()
+    applicationId 'com.omobus.demo.applog'
+  }
+
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+  }
+
+  sourceSets.main {
+    manifest.srcFile 'AndroidManifest.xml'
+    res.srcDirs = ['res']
+    java.srcDirs = ['java']
+    assets.srcDirs = ['assets']
+    jni.srcDirs = []
+    jniLibs.srcDirs = ['libs']
+    aidl.srcDirs = ['aidl']
+  }
+
+  signingConfigs {
+    omobus {
+      storeFile file(skeyStore)
+      storePassword skeyStorePssword
+      keyAlias skeyAlias
+      keyPassword skeyAliasPassword
+    }
+  }
+
+  buildTypes {
+    debug {
+//      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
+      versionNameSuffix '-debug'
+    }
+
+    release {
+      signingConfig signingConfigs.omobus
+      minifyEnabled false
+      shrinkResources false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+    }
+  }
+
+  // Enables new Java features in KitKat+ but needs Java 1.7 installed
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  lintOptions {
+    disable 'MissingTranslation'
+  }
+}
+
+import com.android.build.OutputFile
+project.ext.versionCodes = ['armeabi-v7a':1, 'arm64-v8a':2, 'x86':3]
+
+android.applicationVariants.all { variant ->
+  variant.outputs.each { output ->
+    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+      def file = output.outputFile.name
+      if( output.outputFile.name.endsWith('-release.apk') ) {
+        file = file.replace('-release', '')
+      }
+      // version at the end of each built apk
+      output.outputFileName = file.replace(".apk", "-" + android.defaultConfig.versionName + ".apk")
+    }
+  }
+}

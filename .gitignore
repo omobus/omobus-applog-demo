@@ -1,0 +1,9 @@
+.DS_*
+.gradle/
+.idea/
+build/
+obj/
+libs/arm*/
+libs/x86*/
+local.properties
+*.iml
