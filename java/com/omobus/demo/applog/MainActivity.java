@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                         appLog.bindService();
                     } else if( cookie == null ) {
                         cookie = UUID.randomUUID();
-                        appLog.post("task1", "start", cookie, null);
+                        appLog.post("task1", "begin", cookie, null);
                         xxx = System.currentTimeMillis();
                         ((Button) v).setText(" >>> STOP <<< ");
                     } else {
-                        appLog.post("task1", "stop", cookie,
+                        appLog.post("task1", "end", cookie,
                             String.format("L = %1$.2f secs", (System.currentTimeMillis()-xxx)/1000.0));
                         cookie = null;
                         ((Button)v).setText(" >>> START <<< ");
