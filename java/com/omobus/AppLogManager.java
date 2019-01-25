@@ -44,7 +44,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.util.Log;
 
 import java.util.UUID;
 
@@ -78,6 +77,7 @@ public class AppLogManager {
         }
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.omobus.mobile","com.omobus.mobile.AppLogService"));
+        //debug: intent.setComponent(new ComponentName("com.omobus.mobile.debug","com.omobus.mobile.AppLogService"));
         intent.putExtra("packageName", packageName);
         intent.putExtra("applicationName", applicationName);
         return context.bindService(intent, serviceConnection, /*Context.BIND_EXTERNAL_SERVICE*/Context.BIND_AUTO_CREATE);

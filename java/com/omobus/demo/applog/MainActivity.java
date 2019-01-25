@@ -34,6 +34,9 @@
 
 package com.omobus.demo.applog;
 
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -80,13 +83,39 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onStart() {
         super.onStart();
-        // Bind to the service
-        appLog.bindService();
+        if( ContextCompat.checkSelfPermission(this, "omobus.permission.WRITE_ACCESS")
+                != PackageManager.PERMISSION_GRANTED) {
+            //if( ActivityCompat.shouldShowRequestPermissionRationale(this,
+            //"omobus.permission.WRITE_ACCESS")) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            //    Toast.makeText(getApplicationContext(), "[omobus.permission.WRITE_ACCESS] permission needed.",
+            //        Toast.LENGTH_LONG).show();
+            //} else {
+                ActivityCompat.requestPermissions(this,
+                    new String[]{"omobus.permission.WRITE_ACCESS"},
+                    0);
+            //}
+        } else {
+            // Bind to the service
+            appLog.bindService();
+        }
     }
 
     @Override protected void onStop() {
         super.onStop();
         // Unbind from the service
         appLog.unbindService();
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if( grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // permission was granted.
+            appLog.bindService();
+        } else {
+            // permission denied, disable the functionality that depends on this permission.
+            finish();
+        }
     }
 }
