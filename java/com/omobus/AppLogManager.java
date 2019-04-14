@@ -1,5 +1,4 @@
-/* This file is a part of the omobus project.
- * Copyright (c) 2006 - 2018 ak-obs, Ltd. <info@omobus.net>.
+/* Copyright (c) 2006 - 2019 omobus-applog-demo authors, see the included COPYRIGHT file.
  * All rights reserved.
  *
  * This program is a free software. Redistribution and use in source
